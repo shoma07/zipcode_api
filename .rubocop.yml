@@ -1,0 +1,23 @@
+AllCops:
+  TargetRubyVersion: 2.6.3
+  Exclude:
+    - vendor/**/*
+    - bin/*
+    - node_modules/**/*
+    - db/schema.rb
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/*
+Metrics/BlockLength:
+  Exclude:
+    - db/seeds.rb
+    - config/environments/production.rb
+Metrics/LineLength:
+  Max: 80
+  IgnoredPatterns: ['(\A|\s+)#']
+  Exclude:
+    - db/seeds.rb
+    - config/environments/production.rb
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*
