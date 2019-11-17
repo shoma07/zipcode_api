@@ -38,3 +38,9 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'lograge', '~> 0.11.1'
+
+gem 'fast_jsonapi', '~> 1.5'
+
+gem 'kaminari', '~> 1.1'
+
+gem 'ransack', '~> 2.3'
