@@ -115,7 +115,7 @@ $ docker run -p 3000:3000 zipcode_api
 
 ## Version
 
-Zipcode data has been updated to 2019-05-31.
+Zipcode data has been updated to 2019-10-31.
 
 ## Feature
 
