@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine3.9
+FROM ruby:2.7.0-alpine
 LABEL maintainer="shoma07"
 
 ARG BUILD_PACKAGES="build-base"
