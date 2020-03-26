@@ -2,7 +2,7 @@
 
 Zipcode search API
 
-* Ruby version: 2.6.5
+* Ruby version: 2.7.0
 
 ## Usage
 
