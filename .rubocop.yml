@@ -5,6 +5,12 @@ AllCops:
     - bin/*
     - node_modules/**/*
     - db/schema.rb
+Layout/LineLength:
+  Max: 80
+  IgnoredPatterns: ['(\A|\s+)#']
+  Exclude:
+    - db/seeds.rb
+    - config/environments/production.rb
 Metrics/AbcSize:
   Exclude:
     - db/migrate/*
@@ -12,12 +18,12 @@ Metrics/BlockLength:
   Exclude:
     - db/seeds.rb
     - config/environments/production.rb
-Metrics/LineLength:
-  Max: 80
-  IgnoredPatterns: ['(\A|\s+)#']
-  Exclude:
-    - db/seeds.rb
-    - config/environments/production.rb
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true

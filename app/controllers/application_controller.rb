@@ -46,17 +46,16 @@ class ApplicationController < ActionController::API
 
   # @return [Hash]
   def filter_params
-    unless @filter_params.present?
-      @filter_params = {}
-      params[:filter]&.each do |k, v|
-        if v.is_a? ActionController::Parameters
-          v.each { |l, w| @filter_params["#{k}_#{l}".to_sym] = w }
-        else
-          @filter_params[k.to_sym] = v
-        end
+    return @filter_params if @filter_params.present?
+
+    @filter_params = {}
+    params[:filter]&.each do |k, v|
+      if v.is_a? ActionController::Parameters
+        v.each { |l, w| @filter_params["#{k}_#{l}".to_sym] = w }
+      else
+        @filter_params[k.to_sym] = v
       end
     end
-    @filter_params
   end
 
   # @return [Array]

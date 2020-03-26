@@ -21,11 +21,7 @@ class ApplicationSerializer
     options[:meta] ||= {}
     if resource.is_a?(ActiveRecord::Relation) ||
        resource.is_a?(Kaminari::PaginatableArray)
-      options[:meta][:page] = {
-        total: resource.try(:total_count),
-        current_page: resource.try(:current_page),
-        limit: resource.try(:limit_value), offset: resource.try(:offset_value)
-      }
+      options[:meta][:page] = meta_page(resource)
     end
     fields_validate(options[:fields])
     super
@@ -40,6 +36,17 @@ class ApplicationSerializer
   end
 
   private
+
+  # @param resource [Object]
+  # @return [Hash]
+  def meta_page(resource)
+    {
+      total: resource.try(:total_count),
+      current_page: resource.try(:current_page),
+      limit: resource.try(:limit_value),
+      offset: resource.try(:offset_value)
+    }
+  end
 
   # @raise [ApplicationSerializer::FieldsError]
   def fields_validate(fields = {})

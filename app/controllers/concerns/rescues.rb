@@ -7,7 +7,10 @@ module Rescues
   included do
     rescue_from Exception, with: :rescue_500 if Rails.env.production?
     rescue_from ActionController::ParameterMissing, with: :rescue_400
-    rescue_from ArgumentError, with: :rescue_400
+    rescue_from ArgumentError, with: :rescue_argument_error
+    rescue_from ActionController::ParameterMissing,
+                with: :rescue_parameter_missing
+    rescue_from ApplicationSerializer::FieldsError, with: :rescue_fields_error
     rescue_from ApplicationSerializer::FieldsError, with: :rescue_400
     rescue_from ActionController::RoutingError, with: :rescue_404
   end
@@ -18,25 +21,31 @@ module Rescues
   #
   # @param [Class] exception
   # @return [NilClass]
-  def rescue_400(exception)
-    errors =
-      case exception
-      when ActionController::ParameterMissing
-        { source: { parameter: '/data/type' } }
-      .merge(I18n.t('jsonapi.errors.resource_type'))
-      when ApplicationSerializer::FieldsError
-        { source: { parameter: 'fields' } }.merge(
-          title: 'fields invalid', detail: 'fields invalid'
-        )
-      when ArgumentError
-        if Rails.env.production?
-          { title: 'Bad Request' }
-        else
-          { title: 'Bad Request', detail: exception.message }
-        end
-      else
-        { title: 'Bad Request' }
-      end
+  def rescue_400(_exception)
+    errors = { title: 'Bad Request' }
+    render_error(errors, status: 400)
+  end
+
+  def rescue_argument_error(exception)
+    errors = if Rails.env.production?
+               { title: 'Bad Request' }
+             else
+               { title: 'Bad Request', detail: exception.message }
+             end
+    render_error(errors, status: 400)
+  end
+
+  def rescue_fields_error(_exception)
+    errors = { source: { parameter: 'fields' } }.merge(
+      title: 'fields invalid', detail: 'fields invalid'
+    )
+    render_error(errors, status: 400)
+  end
+
+  def rescue_parameter_missing(_exception)
+    errors = { source: { parameter: '/data/type' } }.merge(
+      I18n.t('jsonapi.errors.resource_type')
+    )
     render_error(errors, status: 400)
   end
 
