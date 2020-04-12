@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'batches/download'
 ActiveRecord::Base.logger = nil
 Address.delete_all
 i = 1
 attributes = {}
 carry = false
-CSV.foreach("#{Rails.root}/db/seeds/KEN_ALL.CSV", encoding: 'CP932:UTF-8') do |csv|
+filename = Rails.root.join('db/seeds/KEN_ALL.csv')
+
+Batches::Download.execute(filename) unless File.exist?(filename)
+
+CSV.foreach(filename) do |csv|
   if carry
     attributes[:town_area_phonetic] << csv[5]
     attributes[:town_area] << csv[8]

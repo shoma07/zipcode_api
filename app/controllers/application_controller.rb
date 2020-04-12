@@ -56,6 +56,7 @@ class ApplicationController < ActionController::API
         @filter_params[k.to_sym] = v
       end
     end
+    @filter_params
   end
 
   # @return [Array]

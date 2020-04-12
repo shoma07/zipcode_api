@@ -11,6 +11,10 @@ Layout/LineLength:
   Exclude:
     - db/seeds.rb
     - config/environments/production.rb
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
 Metrics/AbcSize:
   Exclude:
     - db/migrate/*

@@ -24,3 +24,6 @@
 
 # Ignore locale gems path
 /vendor
+
+/db/seeds/*
+!/db/seeds/.keep

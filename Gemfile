@@ -3,14 +3,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '>= 3.12.4'
+gem 'puma', '~> 4.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Active Model has_secure_password
@@ -42,6 +42,8 @@ gem 'lograge', '~> 0.11.2'
 gem 'fast_jsonapi', '~> 1.6.0',
     git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 
-gem 'kaminari', '~> 1.1'
+gem 'kaminari', '~> 1.2'
 
 gem 'ransack', '~> 2.3'
+
+gem 'rubyzip', '>= 1.0.0', require: false
