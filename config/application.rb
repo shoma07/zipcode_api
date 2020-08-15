@@ -12,7 +12,7 @@ require 'action_controller/railtie'
 # require "action_mailer/railtie"
 # require "action_mailbox/engine"
 # require "action_text/engine"
-require 'action_view/railtie'
+# require 'action_view/railtie'
 # require "action_cable/engine"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
@@ -22,22 +22,11 @@ require 'action_view/railtie'
 Bundler.require(*Rails.groups)
 
 module ZipcodeApi
-  # Application
+  # ZipcodeApi::Application
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
-
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # zipcode version
+    config.paths.add 'lib', eager_load: true, autoload_once: true
     config.version = File.read("#{Rails.root}/VERSION").chomp
   end
 end

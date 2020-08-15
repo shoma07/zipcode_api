@@ -1,0 +1,11 @@
+syntax = 'proto3';
+
+package proto;
+
+import 'proto/address.proto';
+import 'proto/page_meta.proto';
+
+message AddressListResponse {
+  PageMeta page = 1;
+  repeated Address data = 2;
+}

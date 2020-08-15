@@ -3,15 +3,18 @@
 require 'net/http'
 require 'zip'
 module Batches
-  # # Batches::Download
+  # Batches::Download
   module Download
     class << self
+      # @param [String] filename
+      # @return [Integer]
       def execute(filename)
         File.write(filename, ken_all_csv)
       end
 
       private
 
+      # @return [String]
       def ken_all_csv
         Zip::File.open_buffer(StringIO.new(Net::HTTP.get_response(
           URI.parse(

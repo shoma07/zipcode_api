@@ -1,0 +1,9 @@
+syntax = 'proto3';
+
+package proto;
+
+message PageMeta {
+  int32 total = 1;
+  int32 number = 2;
+  int32 size = 3;
+}
