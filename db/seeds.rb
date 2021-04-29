@@ -33,7 +33,7 @@ CSV.foreach(filename) do |csv|
       town_area: csv[8],
       additional_area: nil
     }
-    if attributes[:town_area_phonetic].include?('(') && !attributes[:town_area_phonetic].include?(')')
+    if attributes[:town_area_phonetic].include?('(') && attributes[:town_area_phonetic].exclude?(')')
       carry = true
       next
     end
@@ -42,7 +42,7 @@ CSV.foreach(filename) do |csv|
     attributes[:town_area_phonetic] = nil
     attributes[:town_area] = nil
   end
-  if attributes[:town_area_phonetic] =~ /^.*\(.*\)$/
+  if /^.*\(.*\)$/.match?(attributes[:town_area_phonetic])
     tmp = attributes[:town_area].delete('）').split('（')
     tmp_phonetic = attributes[:town_area_phonetic].delete(')').split('(')
     attributes[:town_area] = tmp[0]

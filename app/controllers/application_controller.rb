@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
 
   def append_info_to_payload(payload)
     super
-    return unless @exception.present?
+    return if @exception.blank?
 
     payload[:exception_object] ||= @exception
     payload[:exception] ||= [@exception.class, @exception.message]

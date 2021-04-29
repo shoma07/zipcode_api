@@ -5,14 +5,11 @@ module Rescues
   extend ActiveSupport::Concern
 
   included do
-    rescue_from Exception, with: :rescue_500 if Rails.env.production?
-    rescue_from ActionController::ParameterMissing, with: :rescue_400
+    rescue_from Exception, with: :rescue_internal_server_error if Rails.env.production?
+    rescue_from ActionController::ParameterMissing, with: :rescue_bad_request
     rescue_from ArgumentError, with: :rescue_argument_error
-    rescue_from ActionController::ParameterMissing,
-                with: :rescue_parameter_missing
-    rescue_from ApplicationSerializer::FieldsError, with: :rescue_fields_error
-    rescue_from ApplicationSerializer::FieldsError, with: :rescue_400
-    rescue_from ActionController::RoutingError, with: :rescue_404
+    rescue_from ActionController::ParameterMissing, with: :rescue_parameter_missing
+    rescue_from ActionController::RoutingError, with: :rescue_not_found
   end
 
   private
@@ -21,7 +18,7 @@ module Rescues
   #
   # @param [Class] exception
   # @return [NilClass]
-  def rescue_400(_exception)
+  def rescue_bad_request(_exception)
     errors = { title: 'Bad Request' }
     render_error(errors, status: 400)
   end
@@ -53,7 +50,7 @@ module Rescues
   #
   # @param [Class] exception
   # @return [NilClass]
-  def rescue_404(exception)
+  def rescue_not_found(exception)
     @exception = exception
     render_error({ title: 'Not Found', detail: 'Not Found.' }, status: 404)
   end
@@ -62,7 +59,7 @@ module Rescues
   #
   # @param [Class] exception
   # @return [NilClass]
-  def rescue_500(exception)
+  def rescue_internal_server_error(exception)
     @exception = exception
     render_error({ title: 'Internal Server Error' }, status: 500)
   end
