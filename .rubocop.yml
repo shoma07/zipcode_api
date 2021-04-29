@@ -1,19 +1,23 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-thread_safety
 AllCops:
-  TargetRubyVersion: 2.7.1
+  TargetRubyVersion: 3.0.1
+  NewCops: enable
   Exclude:
     - vendor/**/*
     - bin/*
+    - lib/proto/**/*
     - node_modules/**/*
     - db/schema.rb
 Layout/LineLength:
-  Max: 80
+  Max: 100
   IgnoredPatterns: ['(\A|\s+)#']
   Exclude:
     - db/seeds.rb
     - config/environments/production.rb
 Lint/RaiseException:
-  Enabled: true
-Lint/StructNewOverride:
   Enabled: true
 Metrics/AbcSize:
   Exclude:
@@ -25,9 +29,6 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*
-Style/HashEachMethods:
-  Enabled: true
-Style/HashTransformKeys:
-  Enabled: true
-Style/HashTransformValues:
-  Enabled: true
+Rails/Output:
+  Exclude:
+    - db/seeds.rb

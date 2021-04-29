@@ -65,7 +65,7 @@ Rails.application.configure do
   config.lograge.base_controller_class = ['ActionController::API']
   config.lograge.formatter = Lograge::Formatters::Json.new
   config.lograge.logger = if ENV['RAILS_LOG_TO_STDOUT'].present?
-                            ActiveSupport::Logger.new(STDOUT)
+                            ActiveSupport::Logger.new($stdout)
                           else
                             ActiveSupport::Logger.new("log/#{Rails.env}.log", 5, 10 * 1024 * 1024)
                           end
@@ -82,7 +82,7 @@ Rails.application.configure do
   config.lograge.custom_options = lambda do |event|
     exceptions = %w[controller action format id]
     {
-      time: Time.now,
+      time: Time.zone.now,
       request_id: event.payload[:request_id],
       host: event.payload[:host],
       remote_ip: event.payload[:remote_ip],

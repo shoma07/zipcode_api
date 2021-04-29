@@ -22,6 +22,7 @@ class ProtobufSerializer
   end
 
   # @param object [Object]
+  # @param options [Hash]
   # @return [ProtobufSerializer]
   def initialize(object, options = {})
     @message = self.class::INIT_MESSAGE.call(object)
@@ -35,4 +36,10 @@ class ProtobufSerializer
 
     JSON.pretty_generate(JSON.parse(json))
   end
+
+  private
+
+  # @!attribute [r] options
+  # @return [Hash]
+  attr_reader :options
 end

@@ -7,7 +7,11 @@ module Inflectors
     # @param [String] abspath
     # @return [String]
     def camelize(basename, abspath)
-      /\A[a-z_]+_pb\z/.match?(basename) ? basename.gsub('_pb', '').camelize : super
+      if /\A[a-z_]+_pb\z/.match?(basename)
+        basename.gsub('_pb', '').camelize
+      else
+        super
+      end
     end
   end
 end
