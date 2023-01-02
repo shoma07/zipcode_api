@@ -12,9 +12,9 @@ Bundler.require(*Rails.groups)
 module ZipcodeApi
   # ZipcodeApi::Application
   class Application < Rails::Application
-    config.load_defaults 6.0
+    config.load_defaults 7.0
     config.api_only = true
     config.paths.add 'lib', eager_load: true, autoload_once: true
-    config.version = File.read(Rails.root.join('VERSION')).chomp
+    config.x.version = Rails.root.join('VERSION').read.chomp
   end
 end

@@ -1,4 +1,4 @@
-FROM ruby:3.0.1-alpine
+FROM ruby:3.2.0-alpine
 LABEL maintainer="23730734+shoma07@users.noreply.github.com"
 
 ENV RAILS_ENV="production" \
@@ -12,8 +12,8 @@ RUN apk add --no-cache --virtual=build-dependencies build-base && \
     bundle install -j4 && \
     apk del --purge build-dependencies
 
-COPY . /usr/src/app/
+COPY ./ /usr/src/app/
 RUN bin/rails tmp:create db:migrate db:seed
 
-CMD ["pumactl","start"]
+CMD ["bin","rails", "s", "-b", "0.0.0.0"]
 EXPOSE 3000

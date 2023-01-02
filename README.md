@@ -14,9 +14,9 @@ $ RAILS_ENV=production bin/rails db:seed
 
 ## Docker
 
-```
-$ docker build -t zipcode_api .
-$ docker run -p 3000:3000 zipcode_api
+```sh
+$ docker compose build
+$ docker compose up
 ```
 
 ## License

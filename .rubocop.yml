@@ -3,22 +3,16 @@ require:
   - rubocop-rails
   - rubocop-thread_safety
 AllCops:
-  TargetRubyVersion: 3.0.1
+  TargetRubyVersion: 3.2.0
   NewCops: enable
   Exclude:
-    - vendor/**/*
     - bin/*
     - lib/proto/**/*
-    - node_modules/**/*
     - db/schema.rb
 Layout/LineLength:
-  Max: 100
-  IgnoredPatterns: ['(\A|\s+)#']
+  AllowedPatterns: ['(\A|\s+)#']
   Exclude:
     - db/seeds.rb
-    - config/environments/production.rb
-Lint/RaiseException:
-  Enabled: true
 Metrics/AbcSize:
   Exclude:
     - db/migrate/*

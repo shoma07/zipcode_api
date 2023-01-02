@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+    environment:
+      - SECRET_KEY_BASE=77bdb8744e9aebc274ea55ab36d3323bc6b22b4fbfc9df91290ddaf5e9108941d3dda4fffa98601f1448f48421b04509a5443419069027153f2d2cc198de6513
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/tmp/pids
+    command: sh -c "rm -f tmp/pids/server.pid && bin/rails s -b 0.0.0.0"

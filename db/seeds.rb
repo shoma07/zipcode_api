@@ -11,7 +11,7 @@ filename = Rails.root.join('db/seeds/KEN_ALL.csv')
 
 Batches::Download.execute(filename) unless File.exist?(filename)
 
-CSV.foreach(filename) do |csv|
+(CSV.foreach(filename).filter_map do |csv|
   if carry
     attributes[:town_area_phonetic] << csv[5]
     attributes[:town_area] << csv[8]
@@ -52,10 +52,10 @@ CSV.foreach(filename) do |csv|
       attributes[:additional_area] = tmp[1]
     end
   end
-  address = Address.new(attributes)
-  address.prefecture_city_town_area = address.prefecture + address.city + address.town_area.to_s
-  address.save(validate: false)
-  print format("\r\r%<index>06d: %<prefecture>s", index: i, prefecture: address.prefecture.ljust(4))
+  print format("\r\r%<index>06d: %<prefecture>s", index: i, prefecture: attributes[:prefecture])
   i += 1
+  attributes.dup
+end).each_slice(10_000) do |attributes_list|
+  Address.insert_all(attributes_list) # rubocop:disable Rails/SkipsModelValidations
 end
 print "\nDone!\n"

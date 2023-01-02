@@ -25,7 +25,7 @@ environment ENV.fetch('RAILS_ENV', 'development')
 # processes).
 #
 web_concurrency = ENV.fetch('WEB_CONCURRENCY', 1).to_i
-workers web_concurrency if web_concurrency > 1
+workers web_concurrency if web_concurrency.positive?
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
